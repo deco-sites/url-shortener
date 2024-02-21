@@ -131,7 +131,7 @@ function Links(props: Props) {
             {header?.title}
           </h1>
         )}
-      
+
         {header?.description && (
           <p
             style={{ color: header.textColor }}
@@ -139,7 +139,6 @@ function Links(props: Props) {
             {header?.description}
           </p>
         )}
-
       </header>
 
       <main class="w-full">
@@ -148,11 +147,14 @@ function Links(props: Props) {
             <p>URL</p>
             <input name="url" class="w-full border-2" />
           </div>
-          <button type="submit" class="rounded-md bg-lime-600 p-2">Encurtar</button>
+          <button type="submit" class="rounded-md bg-lime-600 p-2">
+            Encurtar
+          </button>
         </form>
       </main>
 
-      {/* <footer class="flex flex-1 flex-col">
+      {
+        /* <footer class="flex flex-1 flex-col">
         {props.footer && (props.footer.image || props.footer.text) && (
           <div class="mt-auto">
             <a
@@ -178,7 +180,8 @@ function Links(props: Props) {
             </a>
           </div>
         )}
-      </footer> */}
+      </footer> */
+      }
     </BaseContainer>
   );
 }

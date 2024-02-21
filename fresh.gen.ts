@@ -2,7 +2,10 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
+import * as $_id_ from "./routes/[id].tsx";
 import * as $_app from "./routes/_app.tsx";
+import * as $shorten_index from "./routes/shorten/index.tsx";
+import * as $teste from "./routes/teste.tsx";
 import * as $AddToCartButton_linx from "./islands/AddToCartButton/linx.tsx";
 import * as $AddToCartButton_nuvemshop from "./islands/AddToCartButton/nuvemshop.tsx";
 import * as $AddToCartButton_shopify from "./islands/AddToCartButton/shopify.tsx";
@@ -30,7 +33,10 @@ import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
+    "./routes/[id].tsx": $_id_,
     "./routes/_app.tsx": $_app,
+    "./routes/shorten/index.tsx": $shorten_index,
+    "./routes/teste.tsx": $teste,
   },
   islands: {
     "./islands/AddToCartButton/linx.tsx": $AddToCartButton_linx,
