@@ -1,14 +1,17 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
+import CopyButton from "$store/islands/CopyButton.tsx";
 
 interface Data {
-    id: string;
+  id: string;
+  originalUrl: string;
 }
 
 export const handler: Handlers = {
   GET(req, ctx) {
     const url = new URL(req.url);
-    const query = url.searchParams.get("uuid") || "";
-    return ctx.render({ id: query });
+    const id = url.searchParams.get("uuid") || "";
+    const originalUrl = url.searchParams.get("originalUrl") || "";
+    return ctx.render({ id, originalUrl });
   },
   async POST(req, _) {
     const kv = await Deno.openKv();
@@ -20,7 +23,7 @@ export const handler: Handlers = {
 
     await kv.set([uuid], url);
     const headers = new Headers();
-    headers.set("location", `/shorten?uuid=${uuid}`);
+    headers.set("location", `/shorten?uuid=${uuid}&originalUrl=${url}`);
     return new Response(null, {
       status: 303,
       headers,
@@ -29,11 +32,15 @@ export const handler: Handlers = {
 };
 
 export default function Page({ data }: PageProps<Data>) {
-    const { id } = data;
-    const url = `http://localhost:8000/${id}`;
-    return (
-      <div>
-        <a href={url}>link</a>
-      </div>
-    );
-  }
+  const { id, originalUrl } = data;
+  const url = `http://localhost:8000/${id}`;
+  return (
+    <div>
+      <p>URL encurtada:</p>
+      <a href={url}>{url}</a>
+      <CopyButton textToCopy={url}/>
+      <p>URL original:</p>
+      <a href={originalUrl}>{originalUrl}</a>
+    </div>
+  );
+}

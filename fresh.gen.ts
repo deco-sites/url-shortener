@@ -5,13 +5,13 @@
 import * as $_id_ from "./routes/[id].tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $shorten_index from "./routes/shorten/index.tsx";
-import * as $teste from "./routes/teste.tsx";
 import * as $AddToCartButton_linx from "./islands/AddToCartButton/linx.tsx";
 import * as $AddToCartButton_nuvemshop from "./islands/AddToCartButton/nuvemshop.tsx";
 import * as $AddToCartButton_shopify from "./islands/AddToCartButton/shopify.tsx";
 import * as $AddToCartButton_vnda from "./islands/AddToCartButton/vnda.tsx";
 import * as $AddToCartButton_vtex from "./islands/AddToCartButton/vtex.tsx";
 import * as $AddToCartButton_wake from "./islands/AddToCartButton/wake.tsx";
+import * as $CopyButton from "./islands/CopyButton.tsx";
 import * as $Header_Buttons from "./islands/Header/Buttons.tsx";
 import * as $Header_Cart_linx from "./islands/Header/Cart/linx.tsx";
 import * as $Header_Cart_nuvemshop from "./islands/Header/Cart/nuvemshop.tsx";
@@ -36,7 +36,6 @@ const manifest = {
     "./routes/[id].tsx": $_id_,
     "./routes/_app.tsx": $_app,
     "./routes/shorten/index.tsx": $shorten_index,
-    "./routes/teste.tsx": $teste,
   },
   islands: {
     "./islands/AddToCartButton/linx.tsx": $AddToCartButton_linx,
@@ -45,6 +44,7 @@ const manifest = {
     "./islands/AddToCartButton/vnda.tsx": $AddToCartButton_vnda,
     "./islands/AddToCartButton/vtex.tsx": $AddToCartButton_vtex,
     "./islands/AddToCartButton/wake.tsx": $AddToCartButton_wake,
+    "./islands/CopyButton.tsx": $CopyButton,
     "./islands/Header/Buttons.tsx": $Header_Buttons,
     "./islands/Header/Cart/linx.tsx": $Header_Cart_linx,
     "./islands/Header/Cart/nuvemshop.tsx": $Header_Cart_nuvemshop,
