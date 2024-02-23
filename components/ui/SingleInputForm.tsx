@@ -6,7 +6,7 @@ import type { ComponentChildren } from "preact";
 export interface Props {
   header: Header;
   background: Background;
-  form: Form
+  form: Form;
 }
 
 export interface Header {
@@ -35,51 +35,51 @@ export interface Logo {
 
 export interface Form {
   input: Input;
-  button: Button; 
+  button: Button;
   /**
-  * @title Page path
-  * @description When user clicks on the search button, navigate it to
-  * @default /shorten
-  */
+   * @title Page path
+   * @description When user clicks on the search button, navigate it to
+   * @default /shorten
+   */
   action?: string;
   extraField?: ExtraField;
 }
 
 export interface Input {
   /**
-  * @title Input field name
-  * @default url
-  */
+   * @title Input field name
+   * @default url
+   */
   name?: string;
   /**
-  * @title Input Label
-  * @default URL
-  */
+   * @title Input Label
+   * @default URL
+   */
   label?: string;
   /**
-  * @title Input Placeholder
-  * @default "Paste a long URL"
-  */
+   * @title Input Placeholder
+   * @default "Paste a long URL"
+   */
   placeholder?: string;
 }
 
 export interface Button {
   /**
-  * @title Button background color
-  * @format color
-  * @default #2fd180
-  */
+   * @title Button background color
+   * @format color
+   * @default #2fd180
+   */
   backgroundColor?: string;
   /**
-  * @title Button text color
-  * @format color
-  * @default #fff
-  */
+   * @title Button text color
+   * @format color
+   * @default #fff
+   */
   textColor?: string;
   /**
-  * @title Button text
-  * @default Shorten
-  */
+   * @title Button text
+   * @default Shorten
+   */
   text?: string;
 }
 
@@ -95,25 +95,29 @@ export interface Background {
   backgroundColor?: string;
 }
 
-const defaultForm : Form = {
+const defaultForm: Form = {
   input: { label: "URL", placeholder: "Paste a long URL", name: "url" },
   button: {
     backgroundColor: "#2fd180",
     textColor: "#fff",
-    text: "Shorten"
+    text: "Shorten",
   },
   extraField: {
     name: "idSize",
-    value: "6"
+    value: "6",
   },
-  action: "/shorten"
-}
+  action: "/shorten",
+};
 
 function Links(props: Props) {
   const { header, background, form = defaultForm } = props;
   const formAction = form.action;
   const { label, placeholder, name } = form.input;
-  const { backgroundColor: buttonBackgroundColor, textColor: buttonTextColor, text: buttonText } = form.button;
+  const {
+    backgroundColor: buttonBackgroundColor,
+    textColor: buttonTextColor,
+    text: buttonText,
+  } = form.button;
   const logo = (
     <Image
       decoding="async"
@@ -159,9 +163,24 @@ function Links(props: Props) {
         <form method="post" action={formAction}>
           <p>{label}</p>
           <div class="w-full flex gap-2">
-            <input name={name} class="w-full border-2 rounded-md p-1" placeholder={placeholder} />
-            <input type="hidden" name={form.extraField?.name} value={form.extraField?.value} />
-            <button type="submit" class="rounded-md p-2" style={{ backgroundColor: buttonBackgroundColor, color: buttonTextColor}}>
+            <input
+              name={name}
+              class="w-full border-2 rounded-md p-1"
+              placeholder={placeholder}
+            />
+            <input
+              type="hidden"
+              name={form.extraField?.name}
+              value={form.extraField?.value}
+            />
+            <button
+              type="submit"
+              class="rounded-md p-2"
+              style={{
+                backgroundColor: buttonBackgroundColor,
+                color: buttonTextColor,
+              }}
+            >
               {buttonText}
             </button>
           </div>

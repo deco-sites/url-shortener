@@ -4,6 +4,7 @@
 
 import * as $_id_ from "./routes/[id].tsx";
 import * as $_app from "./routes/_app.tsx";
+import * as $my_links from "./routes/my-links.tsx";
 import * as $shorten_index from "./routes/shorten/index.tsx";
 import * as $AddToCartButton_linx from "./islands/AddToCartButton/linx.tsx";
 import * as $AddToCartButton_nuvemshop from "./islands/AddToCartButton/nuvemshop.tsx";
@@ -35,6 +36,7 @@ const manifest = {
   routes: {
     "./routes/[id].tsx": $_id_,
     "./routes/_app.tsx": $_app,
+    "./routes/my-links.tsx": $my_links,
     "./routes/shorten/index.tsx": $shorten_index,
   },
   islands: {
