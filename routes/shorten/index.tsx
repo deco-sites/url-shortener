@@ -28,7 +28,7 @@ export const handler: Handlers = {
       const uuid = nanoid(idSize);
 
       await kv.set([uuid], url);
-      localStorage.setItem(uuid, url.toString());
+      // localStorage.setItem(uuid, url.toString());
       const headers = new Headers();
       headers.set("location", `/shorten?uuid=${uuid}&originalUrl=${url}`);
       return new Response(null, {
