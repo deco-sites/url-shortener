@@ -24,9 +24,9 @@ export const handler: Handlers = {
     if (url) {
       const formIdSize = form.get("idSize");
       const idSize = formIdSize ? parseInt(formIdSize.toString()) : 6;
-  
+
       const uuid = nanoid(idSize);
-  
+
       await kv.set([uuid], url);
       localStorage.setItem(uuid, url.toString());
       const headers = new Headers();
@@ -52,7 +52,10 @@ export default function Page({ data }: PageProps<Data>) {
   return (
     <div class="w-full flex justify-center">
       <div class="flex flex-col items-center gap-3 p-10 max-w-[640px] w-full">
-        <img width="175" src="https://www.inf.puc-rio.br/wordpress/wp-content/uploads/2023/05/deco-logo-1.png" />
+        <img
+          width="175"
+          src="https://www.inf.puc-rio.br/wordpress/wp-content/uploads/2023/05/deco-logo-1.png"
+        />
         <div class="flex flex-col gap-1">
           <p class="font-bold">Shortened URL:</p>
           <div class="flex gap-1 items-center">
@@ -72,7 +75,6 @@ export default function Page({ data }: PageProps<Data>) {
         </div>
         <a class="text-[#2fd180]" href="/my-links">My links</a>
       </div>
-
     </div>
   );
 }
