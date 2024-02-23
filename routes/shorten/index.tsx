@@ -1,5 +1,6 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import CopyButton from "$store/islands/CopyButton.tsx";
+import { nanoid } from "https://deno.land/x/nanoid/mod.ts";
 
 interface Data {
   id: string;
@@ -20,8 +21,9 @@ export const handler: Handlers = {
 
     const form = await req.formData();
     const url = form.get("url")?.toString();
+    const idSize = parseInt(form.get("idSize")?.toString() || "6");
 
-    const uuid = crypto.randomUUID();
+    const uuid = nanoid(idSize);
 
     await kv.set([uuid], url);
     const headers = new Headers();
@@ -43,7 +45,11 @@ export default function Page({ data }: PageProps<Data>) {
       <CopyButton textToCopy={url} />
       <p>URL original:</p>
       <a href={originalUrl}>{originalUrl}</a>
-      <img src={`https://api.qrserver.com/v1/create-qr-code/?data=${url}&amp;size=10x10`} alt="" title="" />
+      <img
+        src={`https://api.qrserver.com/v1/create-qr-code/?data=${url}&amp;size=10x10`}
+        alt=""
+        title=""
+      />
     </div>
   );
 }

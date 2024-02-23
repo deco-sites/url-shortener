@@ -3,16 +3,10 @@ import Image from "apps/website/components/Image.tsx";
 import Icon, { AvailableIcons } from "$store/components/ui/Icon.tsx";
 import type { ComponentChildren } from "preact";
 
-// export interface Props {
-//   header: Header;
-//   links: Links;
-//   background: Background;
-//   footer?: Footer;
-// }
-
 export interface Props {
   header: Header;
   background: Background;
+  form: Form
 }
 
 export interface Header {
@@ -39,37 +33,60 @@ export interface Logo {
   link?: string;
 }
 
-// export interface Links {
-//   items?: Link[];
-//   style: Style;
-// }
+export interface Form {
+  input: Input;
+  button: Button; 
+  /**
+  * @title Page path
+  * @description When user clicks on the search button, navigate it to
+  * @default /shorten
+  */
+  action?: string;
+  extraField?: ExtraField;
+}
 
-// export interface Link {
-//   /** @description 20px transparent png recommended */
-//   icon?: AvailableIcons;
-//   label: string;
-//   /** @format textarea */
-//   href: string;
-// }
+export interface Input {
+  /**
+  * @title Input field name
+  * @default url
+  */
+  name?: string;
+  /**
+  * @title Input Label
+  * @default URL
+  */
+  label?: string;
+  /**
+  * @title Input Placeholder
+  * @default "Paste a long URL"
+  */
+  placeholder?: string;
+}
 
-// export interface Style {
-//   /**
-//    * @format color
-//    * @description color to be used in link's text
-//    */
-//   textColor: string;
-//   gradientColors: Gradient;
-// }
+export interface Button {
+  /**
+  * @title Button background color
+  * @format color
+  * @default #2fd180
+  */
+  backgroundColor?: string;
+  /**
+  * @title Button text color
+  * @format color
+  * @default #fff
+  */
+  textColor?: string;
+  /**
+  * @title Button text
+  * @default Shorten
+  */
+  text?: string;
+}
 
-// export interface Gradient {
-//   /** @description multiple colors will create a gradient effect */
-//   neutral: Neutral[];
-// }
-
-// export interface Neutral {
-//   /**  @format color */
-//   color: string;
-// }
+export interface ExtraField {
+  name: string;
+  value: string;
+}
 
 export interface Background {
   /** @description an image will override any background color */
@@ -78,19 +95,25 @@ export interface Background {
   backgroundColor?: string;
 }
 
-// export interface Footer {
-//   url?: string;
-//   image?: ImageWidget;
-//   /** @description alternative text */
-//   alt?: string;
-//   width?: number;
-//   height?: number;
-//   text?: string;
-// }
+const defaultForm : Form = {
+  input: { label: "URL", placeholder: "Paste a long URL", name: "url" },
+  button: {
+    backgroundColor: "#2fd180",
+    textColor: "#fff",
+    text: "Shorten"
+  },
+  extraField: {
+    name: "idSize",
+    value: "6"
+  },
+  action: "/shorten"
+}
 
 function Links(props: Props) {
-  // const { header, background, links } = props;
-  const { header, background } = props;
+  const { header, background, form = defaultForm } = props;
+  const formAction = form.action;
+  const { label, placeholder, name } = form.input;
+  const { backgroundColor: buttonBackgroundColor, textColor: buttonTextColor, text: buttonText } = form.button;
   const logo = (
     <Image
       decoding="async"
@@ -104,15 +127,6 @@ function Links(props: Props) {
   const maybeLink = header?.logo?.link
     ? <a href={header?.logo?.link!} target="_blank">{logo}</a>
     : logo;
-
-  // const ColorsNeutralAndHover = {
-  //   color: links.style?.textColor,
-  //   backgroundImage: `linear-gradient(to right, ${
-  //     links.style?.gradientColors.neutral.map((color) => color.color).join(
-  //       ", ",
-  //     )
-  //   })`,
-  // };
 
   return (
     <BaseContainer background={background}>
@@ -142,46 +156,17 @@ function Links(props: Props) {
       </header>
 
       <main class="w-full">
-        <form method="post" action="/shorten" class="flex gap-2">
-          <div class="w-full">
-            <p>URL</p>
-            <input name="url" class="w-full border-2" />
+        <form method="post" action={formAction}>
+          <p>{label}</p>
+          <div class="w-full flex gap-2">
+            <input name={name} class="w-full border-2 rounded-md p-1" placeholder={placeholder} />
+            <input type="hidden" name={form.extraField?.name} value={form.extraField?.value} />
+            <button type="submit" class="rounded-md p-2" style={{ backgroundColor: buttonBackgroundColor, color: buttonTextColor}}>
+              {buttonText}
+            </button>
           </div>
-          <button type="submit" class="rounded-md bg-lime-600 p-2">
-            Encurtar
-          </button>
         </form>
       </main>
-
-      {
-        /* <footer class="flex flex-1 flex-col">
-        {props.footer && (props.footer.image || props.footer.text) && (
-          <div class="mt-auto">
-            <a
-              href={props.footer.url}
-              class="text-xs flex flex-row items-center justify-center gap-1"
-              target="_blank"
-            >
-              {props.footer.text && (
-                <p
-                  style={{ color: header.textColor }}
-                >
-                  {props.footer.text}
-                </p>
-              )}
-              {props.footer.image && (
-                <Image
-                  src={props.footer.image || ""}
-                  alt={props.footer.alt}
-                  width={props.footer.width || 50}
-                  height={props.footer.height || 20}
-                />
-              )}
-            </a>
-          </div>
-        )}
-      </footer> */
-      }
     </BaseContainer>
   );
 }
